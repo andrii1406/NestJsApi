@@ -23,7 +23,7 @@ export class CatsService {
 			.createQueryBuilder()
 			.insert()
 			.into(CatsModel)
-			.values(this.catsMapper.mapToModel(catsDto))
+			.values( this.catsMapper.mapToModel(catsDto))
 			.execute();
 	}
 
