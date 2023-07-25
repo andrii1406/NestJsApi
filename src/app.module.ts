@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CatsService } from './cats/cats.service';
+import { CatsMapper } from './cats/mapper/cats.mapper';
 
 @Module({
   imports: [
@@ -16,6 +17,6 @@ import { CatsService } from './cats/cats.service';
     CatsModule
   ],
   controllers: [AppController],
-  providers: [AppService, CatsService],
+  providers: [AppService, CatsService, CatsMapper],
 })
 export class AppModule {}

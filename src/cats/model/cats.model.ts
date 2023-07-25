@@ -2,17 +2,24 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class CatsModel {
-	
-    @PrimaryGeneratedColumn()
-	id: Number;
+
+	@PrimaryGeneratedColumn()
+	private id: Number;
 
 	@Column({ length: 30, unique: true })
-	name: String;
+	private name: String;
 
 	@Column()
-	createdOn: Date;
+	private createdOn: Date;
 
 	@Column()
-	fl: Boolean;
+	private fl: Boolean;
+
+	constructor(id: Number, name: String, createdOn: Date, fl: Boolean) {
+		this.id = id
+		this.name = name
+		this.createdOn = createdOn
+		this.fl = fl
+	}
 
 }

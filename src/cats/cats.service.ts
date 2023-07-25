@@ -2,14 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { DataSource, InsertResult } from 'typeorm';
 import { CatsModel } from './model/cats.model';
 import { CatsDto } from './dto/cats.dto';
+import { CatsMapper } from './mapper/cats.mapper';
 
 @Injectable()
 export class CatsService {
 
-    constructor(private dataSource: DataSource) { }
+    constructor(
+		private dataSource: DataSource,
+		private readonly catsMapper: CatsMapper
+	) { }
 
 	async readAll(): Promise<CatsModel[]> {
-        return await this.dataSource.getRepository(CatsModel).find();
+        return await this.dataSource
+			.getRepository(CatsModel)
+			.find();
 	}
 
 	async create(catsDto: CatsDto): Promise<InsertResult> {
@@ -17,13 +23,7 @@ export class CatsService {
 			.createQueryBuilder()
 			.insert()
 			.into(CatsModel)
-			.values([
-				{
-					name: catsDto.name,
-					createdOn: new Date(catsDto.createdOn),
-					fl: catsDto.fl
-				},
-			])
+			.values(this.catsMapper.mapToModel(catsDto))
 			.execute();
 	}
 
