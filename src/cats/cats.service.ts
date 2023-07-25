@@ -13,9 +13,7 @@ export class CatsService {
 	) { }
 
 	async readAll(): Promise<CatsModel[]> {
-        return await this.dataSource
-			.getRepository(CatsModel)
-			.find();
+        return await this.dataSource.getRepository(CatsModel).find();
 	}
 
 	async create(catsDto: CatsDto): Promise<InsertResult> {
@@ -23,7 +21,7 @@ export class CatsService {
 			.createQueryBuilder()
 			.insert()
 			.into(CatsModel)
-			.values( this.catsMapper.mapToModel(catsDto))
+			.values(this.catsMapper.mapToModel(catsDto))
 			.execute();
 	}
 
